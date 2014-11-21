@@ -5,6 +5,9 @@ protected:
     RefCnt();
     virtual ~RefCnt();
 public:
+    int referenceCount() {
+        return ref_cnt_;
+    }
     void acquire() {
         ++ref_cnt_;
     }
@@ -13,4 +16,8 @@ public:
             delete this;
         }
     }
+    void forceRelease() {
+        delete this;
+    }
+
 };
