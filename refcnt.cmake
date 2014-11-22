@@ -1,5 +1,5 @@
 
-# enable/disable debug messages related to this pile
+# enable/disable cmake debug messages related to this pile
 set (REFCNT_DEBUG_MSG ON)
 
 # make sure support code is present; no harm

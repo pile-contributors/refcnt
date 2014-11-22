@@ -48,7 +48,7 @@
 //! bug fixes
 #define REFCNT_PATCH_VERSION      (@REFCNT_PATCH_VERSION@)
 
-//! the version ans a 32-bit integer
+//! the version as a 32-bit integer
 #define REFCNT_VERSION            (\
     REFCNT_MAJOR_VERSION * 0x100000 + \
     REFCNT_MINOR_VERSION * 0x1000 + \
@@ -63,7 +63,7 @@
 
 /**
  * @def REFCNT_DEBUG
- * @brief Indicates wheter the debug features should be enabled or disabled
+ * @brief Indicates whether the debug features should be enabled or disabled
  */
 #ifndef REFCNT_DEBUG
 #  ifdef REFCNT_FORCE_DEBUG
