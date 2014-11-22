@@ -30,6 +30,7 @@ macro    (refcntInit
     pileSetCommon(
         "${REF_CNT_INIT_NAME}"
         "0;0;1;d"
+        "ON"
         "${ref_cnt_use_mode}"
         ""
         "basics"
