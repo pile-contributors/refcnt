@@ -9,11 +9,11 @@ include(pile_support)
 
 # initialize this module
 macro    (refcntInit
-          ref_cnt_use_mode)
+          refcnt_use_mode)
 
     # default name
-    if (NOT REF_CNT_INIT_NAME)
-        set(REF_CNT_INIT_NAME "RefCnt")
+    if (NOT REFCNT_INIT_NAME)
+        set(REFCNT_INIT_NAME "RefCnt")
     endif ()
 
     # compose the list of headers and sources
@@ -23,15 +23,15 @@ macro    (refcntInit
         "refcnt.cc")
 
     pileSetSources(
-        "${REF_CNT_INIT_NAME}"
+        "${REFCNT_INIT_NAME}"
         "${REFCNT_HEADERS}"
         "${REFCNT_SOURCES}")
 
     pileSetCommon(
-        "${REF_CNT_INIT_NAME}"
+        "${REFCNT_INIT_NAME}"
         "0;0;1;d"
         "ON"
-        "${ref_cnt_use_mode}"
+        "${refcnt_use_mode}"
         ""
         "basics"
         "referece-count;management")
