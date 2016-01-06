@@ -34,6 +34,23 @@ protected:
     //! Destructor.
     virtual ~RefCnt();
 
+    //! Copy constructor.
+    RefCnt (const RefCnt& other) :
+        ref_cnt_(other.ref_cnt_),
+        owners_list_(other.owners_list_),
+        owners_list_used_(other.owners_list_used_),
+        owners_list_alloc_(other.owners_list_alloc_)
+    {}
+
+    //! assignment operator
+    RefCnt& operator= (const RefCnt& other) {
+        ref_cnt_ = other.ref_cnt_;
+        owners_list_ = other.owners_list_;
+        owners_list_used_ = other.owners_list_used_;
+        owners_list_alloc_ = other.owners_list_alloc_;
+        return *this;
+    }
+
 public:
 
 
@@ -119,7 +136,7 @@ public:
             void * owner);
 #   endif // REFCNT_DEBUG
 
-
+public: virtual void anchorVtable() const;
 };
 
 #endif // GUARD_REFCNT_H_INCLUDE
