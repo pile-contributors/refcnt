@@ -123,7 +123,7 @@ int RefCnt::forceRelease ()
 #ifdef REFCNT_DEBUG
 void  RefCnt::printReferenceList ()
 {
-    printf ("Owners list for instance %p:\n");
+    printf ("Owners list for instance %p:\n", this);
     for (int i = 0; i < owners_list_used_; ++i) {
         if (owners_list_[i] != NULL) {
             printf (" - %p\n", owners_list_[i]);
