@@ -37,8 +37,12 @@ RefCnt::RefCnt() :
 
 #   ifdef REFCNT_DEBUG
     owners_list_alloc_ = 64;
-    owners_list_ = (void**)malloc (sizeof(void*)*owners_list_alloc_);
-    memset (owners_list_, 0, sizeof(void*)*owners_list_alloc_);
+    owners_list_ = static_cast<void**> (
+                malloc (
+                    sizeof(void*) * static_cast<unsigned int> (
+                        owners_list_alloc_)));
+    memset (owners_list_, 0,
+            sizeof(void*) * static_cast<unsigned int> (owners_list_alloc_));
 #   endif // REFCNT_DEBUG
 
     reference (this);
@@ -65,10 +69,19 @@ int RefCnt::reference (void * owner)
                       this, ref_cnt_, owner);
 #   ifdef REFCNT_DEBUG
     if (owners_list_alloc_ == owners_list_used_) {
-        owners_list_alloc_ *= 2;
-        owners_list_ = (void**)realloc (
+        int owners_list_alloc_tmp = owners_list_alloc_ * 2;
+        void ** owners_list_tmp = static_cast<void**> (realloc (
                     owners_list_,
-                    sizeof(void*)*owners_list_alloc_);
+                    sizeof(void*)*static_cast<unsigned int> (
+                        owners_list_alloc_tmp)));
+        if (owners_list_tmp == NULL) {
+            REFCNT_DEBUGM("Failure to allocate memory for %p\n",
+                              this);
+            return ref_cnt_;
+        } else {
+            owners_list_ = owners_list_tmp;
+            owners_list_alloc_ = owners_list_alloc_tmp;
+        }
     }
     owners_list_[owners_list_used_++] = owner;
 #   endif // REFCNT_DEBUG
@@ -123,7 +136,7 @@ int RefCnt::forceRelease ()
 #ifdef REFCNT_DEBUG
 void  RefCnt::printReferenceList ()
 {
-    printf ("Owners list for instance %p:\n", (void*)this);
+    printf ("Owners list for instance %p:\n", static_cast<void*> (this));
     for (int i = 0; i < owners_list_used_; ++i) {
         if (owners_list_[i] != NULL) {
             printf (" - %p\n", owners_list_[i]);
@@ -170,4 +183,4 @@ bool RefCnt::isOwner (void * value)
 #endif // REFCNT_DEBUG
 /* ========================================================================= */
 
-
+void RefCnt::anchorVtable() const {}
